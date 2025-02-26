@@ -1,7 +1,14 @@
 using UnityEngine;
 
-public class coinManager : MonoBehaviour
+public class CoinManager : MonoBehaviour
 {
+    public float rotationSpeed = 100f;
+
+    private void Update()
+    {
+        transform.Rotate(Vector3.up, rotationSpeed * Time.deltaTime);
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
