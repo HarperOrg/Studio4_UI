@@ -6,7 +6,9 @@ public class InputManager : MonoBehaviour
     public Transform cameraTransform;
     public float moveSpeed = 5f;
     public float jumpForce = 5f;
+    public float dashForce = 10f;
     private bool canDoubleJump;
+    private bool canDash;
     private Rigidbody playerRb;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -20,6 +22,7 @@ public class InputManager : MonoBehaviour
     {
         HandleMovement();
         HandleJump();
+        HandleDash();
     }
 
     void HandleMovement()
@@ -45,12 +48,23 @@ public class InputManager : MonoBehaviour
             {
                 playerRb.linearVelocity = new Vector3(playerRb.linearVelocity.x, jumpForce, playerRb.linearVelocity.z);
                 canDoubleJump = true;
+                canDash = true;
             }
             else if (canDoubleJump)
             {
                 playerRb.linearVelocity = new Vector3(playerRb.linearVelocity.x, jumpForce, playerRb.linearVelocity.z);
                 canDoubleJump = false;
             }
+        }
+    }
+
+    void HandleDash()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
+        {
+            Vector3 dashDirection = cameraTransform.forward;
+            playerRb.AddForce(dashDirection * dashForce, ForceMode.Impulse);
+            canDash = false;
         }
     }
 
@@ -64,6 +78,7 @@ public class InputManager : MonoBehaviour
         if (collision.gameObject.CompareTag("ground"))
         {
             canDoubleJump = true;
+            canDash = true;
         }
     }
 }
