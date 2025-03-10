@@ -1,7 +1,11 @@
-# ThirdPersonPlatformer
+# Studio 4 ThirdPersonPlatformer with UI
  
 
 
-https://github.com/user-attachments/assets/ce79fccf-8983-49f7-9692-77175165324a
 
-Link if video doesn't load https://youtu.be/clJhBRReQ54
+
+https://github.com/user-attachments/assets/6319ba8c-3597-4a5f-b20c-92e83c4a0049
+
+
+
+Link if video doesn't load https://youtu.be/ehIJ2DFLzok
