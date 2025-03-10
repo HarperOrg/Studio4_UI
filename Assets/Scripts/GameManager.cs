@@ -1,5 +1,12 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using UnityEditor;
+
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 public class GameManager : MonoBehaviour
 {
@@ -17,6 +24,9 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        inputManager.OnSettingsMenu.AddListener(ToggleSettingsMenu);
+        DisableSettingsMenu();
+
         if (Instance == null)
         {
             Instance = this;
@@ -26,9 +36,6 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject); // Prevents duplicate GameManager instances
         }
-
-        inputManager.OnSettingsMenu.AddListener(ToggleSettingsMenu);
-        DisableSettingsMenu();
     }
 
     public void AddScore(int value)
@@ -38,26 +45,35 @@ public class GameManager : MonoBehaviour
     }
 
     private void ToggleSettingsMenu()
- {
- if (isSettingsMenuActive) DisableSettingsMenu();
- else EnableSettingsMenu();
- }
+    {
+        if (isSettingsMenuActive) DisableSettingsMenu();
+        else EnableSettingsMenu();
+    }
 
- private void EnableSettingsMenu()
- {
- Time.timeScale = 0f;
- settingsMenu.SetActive(true);
- Cursor.lockState = CursorLockMode.None;
- Cursor.visible = true;
- isSettingsMenuActive = true;
- }
+    private void EnableSettingsMenu()
+    {
+        Time.timeScale = 0f;
+        settingsMenu.SetActive(true);
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        isSettingsMenuActive = true;
+    }
 
     public void DisableSettingsMenu()
- {
- Time.timeScale = 1f;
- settingsMenu.SetActive(false);
- Cursor.lockState = CursorLockMode.Locked;
- Cursor.visible = false;
- isSettingsMenuActive = false;
- }
+    {
+        Time.timeScale = 1f;
+        settingsMenu.SetActive(false);
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        isSettingsMenuActive = false;
+    }
+
+    public void QuitGame()
+    {
+        #if UNITY_EDITOR
+        EditorApplication.isPlaying = false;
+        #else
+        Application.Quit();
+        #endif
+    }
 }
