@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using UnityEngine.Events;
 public class InputManager : MonoBehaviour
 {
     public Transform player;
@@ -11,6 +11,8 @@ public class InputManager : MonoBehaviour
     private bool canDash;
     private Rigidbody playerRb;
 
+    public UnityEvent OnSettingsMenu = new();
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -20,6 +22,10 @@ public class InputManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            OnSettingsMenu.Invoke();
+        }
         HandleMovement();
         HandleJump();
         HandleDash();

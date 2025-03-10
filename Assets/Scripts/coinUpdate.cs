@@ -32,5 +32,14 @@ public class coinUpdate : MonoBehaviour
     public void UpdateScore(int score){
         toUpdate.SetText($"{score}");
         coinTextContainer.DOLocalMoveY(containerInitPosition + moveAmount, duration);
+
+        StartCoroutine(ResetCoinContainer(score));
+    }
+
+    private IEnumerator ResetCoinContainer(int score){
+        yield return new WaitForSeconds(duration);
+        current.SetText($"{score}");
+        Vector3 localPosition = coinTextContainer.localPosition;
+        coinTextContainer.localPosition = new Vector3(localPosition.x,containerInitPosition, localPosition.z);
     }
 }
