@@ -46,6 +46,10 @@ public class InputManager : MonoBehaviour
         }
     }
 
+    public void UpdatePlayerMaxSpeed(float speed){
+        moveSpeed = speed;
+    }
+
     void HandleJump()
     {
         if (Input.GetButtonDown("Jump"))
