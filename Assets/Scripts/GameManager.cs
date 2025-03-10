@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI scoreText;
     private int score = 0;
 
+    [SerializeField] private coinUpdate coinUpdate;
+
     private void Awake()
     {
         if (Instance == null)
@@ -23,6 +25,6 @@ public class GameManager : MonoBehaviour
     public void AddScore(int value)
     {
         score += value;
-        scoreText.text = "SCORE: " + score;
+        coinUpdate.UpdateScore(score);
     }
 }
